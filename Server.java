@@ -1,4 +1,4 @@
-package math;
+package pt1;
 
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -16,30 +16,34 @@ public class Server {
 			String s = inServer.nextLine();
 			
 			String cp[] = s.split(" ");
-			String cp2 = s.substring(0, s.indexOf(" "));
-			s = s.substring(s.indexOf(" ")+1);
-			System.out.println(cp2);
+			
 			
 			String nu1 = s.substring(0, s.indexOf(" ")+1);
 			System.out.println(nu1);
-			String nu2 = s.substring(0, s.indexOf(" ")+1);
+			
+			String nu2 = s.substring(0, s.indexOf(" ")+ 1);
 			System.out.println(nu2);
-			String kq = tinhtoan(cp[0], cp[1], cp[2]);
+			
+			String kq = tinhtoan(cp[0], cp[1]);
 			outServer.println(kq);
 			socket.close();
 			
-;		}
+		}
+		
 	}
-	public static String tinhtoan(String cp, String a, String b) {
-String kq = "";
-int as = Integer.parseInt(a);
-int bs = Integer.parseInt(b);
-if(cp.equalsIgnoreCase("SUM")) {
-	kq = kq + (as + bs);
-} else {
-	kq = kq + (as * bs);
-}
-return kq;
+	public static String tinhtoan(String as, String bs) {
+		int a = Integer.parseInt(as);
+		int b = Integer.parseInt(bs);
+		if (a == 0) {
+            if (b == 0) {
+                return "Phương trình có vô số nghiệm";
+            } else {
+                return "Phương trình vô nghiệm";
+            }
+        } else {
+            double x = -b / a;
+            return "Nghiệm của phương trình là: " + x;}
+
 	}
 
 }
