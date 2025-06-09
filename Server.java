@@ -1,30 +1,35 @@
-package datetime;
+package looptun;
 
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Scanner;
 
 public class Server {
-	public static void main(String[] args) throws Exception {
-		ServerSocket serverSocket = new ServerSocket(3636);
+	public static void main(String[] args)throws Exception {
+		ServerSocket ss = new ServerSocket(36);
 		while(true) {
-			Socket socket = serverSocket.accept();
-			Scanner inServer = new Scanner(socket.getInputStream());
-			PrintWriter outServer = new PrintWriter(socket.getOutputStream(),true);
-			String s = inServer.nextLine();
-			Calendar calen = Calendar.getInstance();
-			SimpleDateFormat date = new SimpleDateFormat("dd-MM-yyyy");
-			SimpleDateFormat time = new SimpleDateFormat("hh-mm-ss");
-			String kq;
-			if(s.equalsIgnoreCase("date")) {
-				kq = date.format(calen.getTime());
-			} else {
-				kq = time.format(calen.getTime());
+			Socket socket = ss.accept();
+			Scanner inS = new Scanner(socket.getInputStream());
+			PrintWriter outS = new PrintWriter(socket.getOutputStream(),true);
+			
+			String s = inS.nextLine();
+			
+			String cp[] = s.split(" ");
+			
+			int n = Integer.parseInt(cp[1]);
+			
+			int kq = 0;
+			if(cp[0].equalsIgnoreCase("sum")) {
+				for(int i = 0; i<=n; i++)
+					kq+=i;
 			}
-			outServer.println(kq);
+			else {
+				kq = 1;
+				for(int i = 1; i<=n; i++)
+					kq*=i;
+			}
+			outS.println(kq);
 			socket.close();
 		}
 	}
